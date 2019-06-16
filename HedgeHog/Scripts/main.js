@@ -37,7 +37,7 @@ var callCache = {
 var quoteAPI = 
 //"https://api.iextrading.com/1.0/stock/qqq/price";
 // "https://query2.finance.yahoo.com/v10/finance/quoteSummary/QQQ?formatted=true&crumb=0&lang=en-CA&region=CA&modules=price%2CsummaryDetail&corsDomain=ca.finance.yahoo.com";
- "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=QQQ&apikey=UIQ2HD0KKKYD4FBA";
+ "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=QQQ&apikey=yourkeygoeshere";
 
 
 var quotePollingHandler;
