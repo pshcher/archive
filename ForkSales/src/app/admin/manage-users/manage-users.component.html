@@ -1,0 +1,79 @@
+<div style="margin:10px;">
+  <div class="row">
+    <div class="col-7">
+      <div class="row">
+        <div class="col-10">
+          <h1>Manage Fork Sales Users Here</h1>
+        </div>
+        <div class="col-2 justify-content-center align-self-center">
+            <button mat-button >
+                <i class="material-icons md-48" (click)="openAddDialog()">person_add</i>
+              </button>
+        </div>        
+      </div>
+
+      <mat-form-field style="margin-top:20px;">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Find Users" [(ngModel)]="findusers" name="findusers">
+      </mat-form-field>      
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="10%"> Edit </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button>
+                <mat-icon (click)="openEditDialog(element)">edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="10%"> Delete </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button>
+                <mat-icon (click)="openDeleteDialog(element)">delete</mat-icon> 
+              </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="managers">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="10%"> Managers </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button>
+                <mat-icon (click)="openUserManagersEditDialog(element)">group</mat-icon> 
+              </button>
+            </td>
+          </ng-container>          
+          <ng-container matColumnDef="user_id">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="10%"> User Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="user_name">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="20%"> User Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.user_name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cc_line">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="10%"> CC </th>
+            <td mat-cell *matCellDef="let element"> {{element.cc_line}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="permission">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="15%"> Permission </th>
+            <td mat-cell *matCellDef="let element"> {{element.permission}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="manager_id">
+            <th mat-header-cell *matHeaderCellDef class="alert alert-success" width="15%"> Manager </th>
+            <td mat-cell *matCellDef="let element"> {{element.manager_id}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

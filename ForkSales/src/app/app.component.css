@@ -1,0 +1,23 @@
+.centered {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);height:100px;width:100px;
+  }
+
+  /* .hiddenalert {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+  } */
+
+  .slider {
+    overflow-y: hidden;
+    max-height: 500px; 
+  
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  } 
+  
+  .slider.closed {
+    max-height: 0;
+  }
+

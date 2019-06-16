@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<app-loader #apploader [hidden]="!apploader.isLoading" class="dark-overlay"></app-loader>
+<!-- {{f.apiUrl}} -->
+<!-- <div class="alert alert-warning alert-dismissible slider" [class.closed]="!showMessage"> -->
+<div class="text-white slider" [class.closed]="!showMessage"
+[class.bg-warning]="isWarning" [class.bg-info]="isInfo" [class.bg-danger]="isError">
+    <button [hidden]="!showMessage" type="button" class="close" data-dismiss="alert" 
+    (click)="onAlertClose()">&times;</button>
+    {{message}}
+</div>
+<!-- <ng4-loading-spinner></ng4-loading-spinner> -->
+<div>
+    <router-outlet></router-outlet>
+</div>

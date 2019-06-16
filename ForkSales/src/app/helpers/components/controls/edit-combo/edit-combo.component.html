@@ -1,0 +1,17 @@
+<!-- {{diags(collectionIn)}} -->
+<div class="d-flex">
+ <input [hidden]="toggleDD" style="flex-grow: 9" type="text" [(ngModel)]="textboxValue" 
+  (ngModelChange)="updateChanges()" name="textboxValue">
+  <select [hidden]="!toggleDD" style="flex-grow: 9"  [(ngModel)]="selectedDDValue" 
+  name="selectedDDValue" (ngModelChange)="updateChanges()">
+    <option *ngFor="let item of collectionIn;let i=index;" selected="i==0">
+      {{item}}
+    </option>
+  </select>
+
+  <div class="d-flex" style="align-items: center; justify-content: flex-end;border: 2px solid lightgray;">
+    <mat-icon class="mr-1 ml-2" (click)="toggleDD=false;updateChanges()">edit</mat-icon>
+    <mat-slide-toggle class="mr-1" [(ngModel)]="toggleDD" (ngModelChange)="updateChanges()" name="toggle"></mat-slide-toggle>
+    <mat-icon class="mr-1" (click)="toggleDD=true;updateChanges()">reorder</mat-icon>
+  </div>
+</div>

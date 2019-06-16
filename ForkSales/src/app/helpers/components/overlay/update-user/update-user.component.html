@@ -1,0 +1,51 @@
+<h1 mat-dialog-title class="alert alert-primary">Modify Existing User <b>{{modelBUP.UserName}}</b></h1>
+<form #updateUserForm="ngForm">
+  <div mat-dialog-content class="text-center">
+    <div class="form-group ">
+      <label for="name" class="float-left">Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="model.UserName" name="name" #name="ngModel">
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="CCLine" class="float-left">CC Line</label>
+      <input type="text" class="form-control" id="CCLine" [(ngModel)]="model.CCLine" name="CCLine" maxlength="2">
+    </div>
+
+    <div class="form-group">
+      <label for="CashCode" class="float-left">Cash Code</label>
+      <input type="text" class="form-control" id="CashCode" [(ngModel)]="model.CashCode" name="CashCode">
+    </div>
+
+    <div class="form-group">
+      <label for="MngrId" class="float-left">Manager Id</label>
+      <input type="text" class="form-control" id="MngrId" [(ngModel)]="model.MngrId" name="MngrId">
+    </div>
+
+    <div class="form-group">
+      <label for="Permission" class="float-left">Permission</label>
+      <select class="form-control" id="Permission" required [(ngModel)]="model.Permission" name="Permission"
+        #Permission="ngModel">
+        <option *ngFor="let perm of permissions" [value]="perm">{{perm}}</option>
+      </select>
+      <div [hidden]="Permission.valid || Permission.pristine" class="alert alert-danger">
+        Permission is required
+      </div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions class="float-right" style="margin-top:20px;">
+
+    <button mat-button (click)="onNoClick()" cdkFocusInitial>Cancel</button>
+    <button mat-button (click)="onYesClick()" [disabled]="!updateUserForm.form.valid || !updatePending">Submit</button>
+   <!-- <button type="submit" [disabled]="!updateUserForm.form.valid" mat-button [mat-dialog-close]="model">Submit</button> -->
+  </div>
+</form>
+<!-- 
+      <div>
+        <hr>
+        Name via form.controls = {{showFormControls(updateUserForm)}}
+      </div>
+     -->

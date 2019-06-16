@@ -1,0 +1,66 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { dtoUser, Manager, UserManager } from 'src/app/models/DTOs/OutDTOs';
+import { AdminService } from 'src/app/admin/admin.service';
+
+@Component({
+  selector: 'app-edit-user-managers',
+  templateUrl: './edit-user-managers.component.html',
+  styleUrls: ['./edit-user-managers.component.css']
+})
+export class EditUserManagersComponent implements OnInit {
+  managers: Manager[];
+  userManagers: UserManager[];
+
+  managerToAdd: Manager;
+  userManagerToAdd: UserManager = {} as UserManager;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+ 
+  get showUserManagers(){
+    return this.userManagers.filter( um => um.inList == true);
+  }
+
+  onManagerChange(mgr_id) {
+    var _um = this.userManagers.filter(um => um.manager_id == mgr_id);
+    this.userManagerToAdd = _um.length ? Object.assign({}, _um[0]) : {} as UserManager; //Shallow copy 
+    if (this.userManagerToAdd.manager_id)
+      this.userManagerToAdd.inList = true;
+  }
+
+  constructor(public dialogRef: MatDialogRef<EditUserManagersComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: dtoUser,
+    public adminService: AdminService) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.adminService.getAllManagers().subscribe(m => this.managers = m);
+    this.adminService.getUserManagers().subscribe(um => this.userManagers = um);
+  }
+
+  addMgr(): void {
+    if (this.userManagerToAdd.manager_id ) {
+      var index = this.userManagers.findIndex( um => um.manager_id == this.userManagerToAdd.manager_id);
+      if ( index >= 0)
+        this.userManagers[index] = Object.assign({},this.userManagerToAdd); //update existing object
+      else
+        this.userManagers.push(this.userManagerToAdd);
+
+      this.userManagerToAdd = <UserManager>{};
+      this.managerToAdd = <Manager>{};
+     }
+  }
+
+  remove(um: UserManager): void {
+    const index = this.userManagers.findIndex(m => m.manager_id == um.manager_id);
+
+    if (index >= 0) {
+      this.userManagers[index].inList = false;
+    }
+  }
+}

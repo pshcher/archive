@@ -1,0 +1,29 @@
+<form id="checkout-form">
+    <div class="row mt-1">
+        <div class="col-sm-2 px-0 float-right pr-1">
+
+        </div>
+        <div class="col-sm-4 px-0 float-right has-feedback d-inline-flex align-items-center border border-info mr-2" id="card-number-bootstrap">
+            <div id="card-number" class="pl-3"></div>
+            <label class="help-block" for="card-number" id="card-number-error"></label>
+        </div>
+        <div class="col-sm-2 px-0 float-right has-feedback d-inline-flex align-items-center border border-info mr-2" id="card-cvv-bootstrap">
+            <div id="card-cvv" class="pl-3"></div>
+            <label class="help-block" for="card-cvv" id="card-cvv-error"></label>
+        </div>
+        <div class="col-sm-2 px-0 float-right has-feedback d-inline-flex align-items-center border border-info mr-2" id="card-expiry-bootstrap">
+            <div id="card-expiry" class="pl-3"></div>
+            <label class="help-block" for="card-expiry" id="card-expiry-error"></label>
+        </div>
+        <div class="px-0 float-right d-inline-flex align-items-center">
+            <button id="pay-button" type="submit" class="btn btn-sm btn-primary disabled" disabled="true">
+                Get Token
+            </button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <div id="feedback"></div>
+    </div>
+</div>

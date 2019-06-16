@@ -1,0 +1,15 @@
+.input-group-text {
+    background-color: white;
+    color: blue;
+}
+
+.input-res
+{
+     width: 100%;
+     max-width: 3000px;
+     box-sizing: border-box;
+ }
+
+ .example-full-width {
+    width: 100%;
+  }

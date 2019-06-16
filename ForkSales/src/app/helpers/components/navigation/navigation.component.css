@@ -1,0 +1,137 @@
+  .stack {
+    cursor: pointer;
+  }
+
+  .navbarx .toggle,
+  .navbarx .switch,
+  .navbarx .brand {
+    display: inline-block;
+  }
+
+  .navbarx .link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .navbarx .link:not(.active) {
+    color: white;
+  }
+
+  .navbarx .nbmain .link {
+    background: black;
+  }
+
+  .navbarx .nb2nd .link {
+    background: gray;
+  }
+
+  .navbarx .link:hover,
+  .navbarx .link:active {
+    color: black;
+    background: white;
+  }
+
+  .active {
+    color: darkblue !important;
+    background: hotpink;
+  }
+
+  .navbarx .brand {
+    text-align: center;
+    background: black;
+    color: white;
+  }
+
+  .navbarx .toggle,
+  .switch {
+    padding: 1em;
+    vertical-align: middle;
+  }
+
+  .navbarx .toggle {
+    color: black;
+    background: lightgray;
+  }
+
+  button {
+    padding: 0px 3px 0px 3px;
+    margin-left: 5px;
+  }
+
+  @media (min-width: 500px) {
+    .navbarx {
+      display: flex;
+    }
+
+    .navbarx .left,
+    .navbarx .loginFull {
+      display: flex;
+      flex: 1;
+    }
+
+    .navbarx .link {
+      width: auto;
+    }
+
+    .navbarx .login {
+      justify-content: flex-end;
+    }
+
+    .navbarx .toggle,
+    .navbarx .loginSmall,
+    .loginTiny, switch {
+      display: none;
+    }
+  }
+
+  .navbarx div {
+    display: none;
+  }
+
+  @media (min-width: 500px) {
+    .navbarx div {
+      display: flex;
+    }
+  }
+
+  @media (max-width:320px) {
+
+    .navbarx .loginFull,
+    .navbarx .loginSmall {
+      display: none;
+    }
+
+    .loginTiny {
+      display: inline;
+      vertical-align: middle;
+    }
+  }
+
+  @media (max-width: 500px) {
+    span.active span.link {
+      color: darkblue !important;
+      background: hotpink;
+    }
+
+    .navbarx.active .toggle {
+      background: black;
+      color: white;
+    }
+
+    .navbarx.active div {
+      display: block;
+    }
+
+    .navbarx .loginSmall {
+      display: inline;
+      margin-left: 5px;
+    }
+
+    .navbarx .loginFull {
+      display: none;
+    }
+  }

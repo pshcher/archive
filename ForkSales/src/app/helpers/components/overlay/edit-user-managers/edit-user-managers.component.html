@@ -1,0 +1,72 @@
+<h2 mat-dialog-title class="alert alert-info">Modify Selection of User Managers</h2>
+<div mat-dialog-content>
+  <div style="min-height:270px;">
+    <mat-form-field class="chip-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let userMgr of showUserManagers" [selectable]="selectable" 
+                  [removable]="removable" (removed)="remove(userMgr)">
+          {{userMgr.mgrFullName}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </mat-form-field>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6"><b>Add a Manager</b></div>
+        <!--     <div class="col-2 offset-2">
+          <button mat-button>
+            <mat-icon class="md-24" (click)="addMgr()" color="primary">person_add</mat-icon>
+          </button>
+        </div> -->
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-6">
+          <mat-form-field>
+            <mat-select placeholder="Manager" [(ngModel)]="userManagerToAdd" 
+                name="managerToAdd"><!--  (selectionChange)="onManagerChange($event.value)" -->
+              <mat-option *ngFor="let mgr of managersEx" [value]="mgr">
+                {{mgr.mgrFullName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="CCLine" #ccLine [(ngModel)]="userManagerToAdd.cc_line" name="ccLine">
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Source A" #sourceA [(ngModel)]="userManagerToAdd.source_A" name="sourceA">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Source B" #sourceB [(ngModel)]="userManagerToAdd.source_B" name="sourceB">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-2 offset-10">
+          <button mat-button *ngIf="userManagerToAdd && userManagerToAdd.manager_id">
+            <mat-icon class="md-36" (click)="addMgr()" color="primary">person_add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="float-right">
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Cancel</button>
+  <button mat-button (click)="onYesClick()" [disabled]="!updatePending">Ok</button><!-- [mat-dialog-close]="managersEx"  -->
+</div>

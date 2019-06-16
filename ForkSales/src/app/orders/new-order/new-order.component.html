@@ -1,0 +1,141 @@
+<div class="d-flex justify-content-center">
+  <form class="container" name="form" #f="ngForm" (ngSubmit)="onSubmit()" style="min-width:320px; width:760px; border: 2px solid blue;">
+    <div class="row mt-1 border-primary ">
+      <div class="col-sm-2 float-right pr-1">Streets:</div>
+      <div class="col-sm-10 px-0">
+        <app-edit-combo [collectionIn]="streetsData" [req]='false' apprequireVisible name="streets" id="streets"
+          [ngModel]="selectedStreet">
+        </app-edit-combo>
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Cities:</div>
+      <div class="col-sm-10 px-0">
+        <app-edit-combo [collectionIn]="streetsData" name="cities" id="cities" [(ngModel)]="selectedStreet">
+        </app-edit-combo>
+      </div>
+    </div>
+
+    <!-- <app-custom-checkout name="checkout" id="checkout" #checkOut>
+            </app-custom-checkout> -->
+
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Automplete:</div>
+      <div class="col-sm-10 px-0">
+        <mat-form-field class="example-full-width">
+          <input type="text" aria-label="Number" matInput [matAutocomplete]="auto" id="autocomplete1" name="autocomplete1"
+            [(ngModel)]="selectedOption">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Automplete Req:</div>
+      <div class="col-sm-10 px-0">
+        <mat-form-field class="example-full-width">
+          <input type="text" aria-label="Number" matInput [matAutocomplete]="auto" id="autocomplete2" name="autocomplete2"
+            [(ngModel)]="selectedOption2" required pattern="(.*[a-zA-Z].*)">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options2" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Automplete Obj:</div>
+      <div class="col-sm-10 px-0">
+        <mat-form-field class="example-full-width">
+          <input type="text" aria-label="Assignee" matInput [(ngModel)]="selectedOption3" required [matAutocomplete]="auto3"
+            id="autocomplete3" name="autocomplete3">
+          <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of options3" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Filtered Obj:</div>
+      <div class="col-sm-10 px-0">
+        <mat-form-field class="example-full-width">
+          <input type="text" aria-label="Assignee" matInput [(ngModel)]="selectedOption4" required [matAutocomplete]="auto4"
+            id="autocomplete4" name="autocomplete4" (blur)="onBlur()">
+          <!-- pattern=".{1,}"-->
+
+          <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Home Phone:</div>
+      <div class="col-sm-2 px-0 float-right"><input type="text" class="input-res" maxlength="10"></div>
+      <div class="col-sm-2 px-0 float-right pr-1">Business Phone:</div>
+      <div class="col-sm-2 px-0 float-right"><input type="text" class="input-res" maxlength="10"></div>
+      <div class="col-sm-2 px-0 float-right pr-1">Ext:</div>
+      <div class="col-sm-2 px-0 float-right">
+        <input id="ext" class="input-res" maxlength="4" name="ext" [(ngModel)]="ext" appForbiddenName="" #ext2="ngModel">
+        <div *ngIf="ext2.invalid && (ext2.dirty || ext2.touched)" class="alert alert-danger">
+          <div *ngIf="ext2.errors && ext2.errors['forbiddenName']">
+            Name cannot be Bob.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Email:</div>
+      <div class="col-sm-10 px-0 float-right">
+        <input type="text" class="input-res" maxlength="50" name="emailinp" [(ngModel)]="emailinp"></div>
+    </div>
+    {{emailinp}}
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">Email:</div>
+      <div class="col-sm-10 px-0 float-right">
+        <select>
+          <option selected>;CAMLKAMVKLAMVKJAMVKJANKJANKJAN</option>
+        </select>
+
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-sm-2 float-right pr-1">
+        <mat-icon title="Home Phone">home</mat-icon>
+      </div>
+      <div class="col-sm-2 px-0 float-right">
+        <input type="text" class="input-res" maxlength="13" placeholder="(999)999-9999">
+      </div>
+      <div class="col-sm-1 float-right pr-1">
+        <mat-icon title="Work Phone">work</mat-icon>
+      </div>
+      <div class="col-sm-2 px-0 float-right">
+        <input type="text" class="input-res" maxlength="13" placeholder="(999)999-9999">
+      </div>
+      <div class="col-sm-1 float-right pl-1">
+        <input type="text" class="input-res" maxlength="4" placeholder="Ext" title="Extension">
+      </div>
+      <div class="col-sm-1 float-right pr-1">
+        <mat-icon title="Email">email</mat-icon>
+      </div>
+      <div class="col-sm-3 px-0 float-right">
+        <input type="text" class="input-res" maxlength="50" placeholder="abc@example.com">
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!f.valid">Submit</button>
+  </form>
+</div>

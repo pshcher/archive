@@ -1,0 +1,39 @@
+<nav class="navbarx nbmain bg-dark" [ngClass]="responsiveMenuClass">
+  <span class="toggle" (click)="toggleMenu()" *ngIf="authService.isLoggedIn"
+    style="padding-top: 6px; padding-bottom: 6px;">
+    <mat-icon class="stack">menu</mat-icon>
+  </span>
+  <span class="brand">
+    <img src="assets\logo45.png" alt="Logo" />
+    <span class="ml-2 font-weight-bold" style="font-size:large;color:lightcyan;vertical-align: middle;">ForkSales</span>
+  </span>
+  <span class="loginTiny" style="color:greenyellow;float: right;height: 45px; line-height: 45px">
+    <span *ngIf="authService.isLoggedIn" (click)="onLogout()" class="switch d-flex align-items-center"
+      title="Log Out" style="padding-top: 6px; padding-bottom: 6px;;height: 45px; line-height: 45px" >
+      <mat-icon>cancel</mat-icon>
+    </span>
+    <span *ngIf="!authService.isLoggedIn && !isLogin" (click)="gotoLogin()"
+      style="padding-top: 6px; padding-bottom: 6px;" title="Log In">
+      <mat-icon>vpn_key</mat-icon>
+    </span>
+  </span>
+  <div class="left" *ngIf="authService.isLoggedIn">
+    <span class="nav-item" *ngFor="let mi of topMenu">
+      <span class="link" routerLink="{{mi.url}}" routerLinkActive="active">{{mi.display}} </span>
+    </span>
+  </div>
+
+  <span class="loginFull align-items-center justify-content-end" style="color:greenyellow">{{authService.userGreeting}}
+    <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="button" title="Log In"
+      *ngIf="authService.isLoggedIn" (click)="gotoLogin()">Log Out</button>
+    <button class="btn btn-sm btn-outline-success my-2 my-sm-0 py-0" type="button" title="Log Out"
+      *ngIf="!authService.isLoggedIn && !isLogin" (click)="onLogout()">Log In</button>
+  </span>
+</nav>
+<nav class="navbarx nb2nd bg-secondary" [ngClass]="responsiveMenuClass">
+  <div class="left" *ngIf="authService.isLoggedIn">
+    <span *ngFor="let mi of secondaryMenu" routerLinkActive="active">
+      <span class="link" routerLink="{{mi.url}}">{{mi.display}}</span>
+    </span>
+  </div>
+</nav>
