@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="./Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="./Content/toastr.css" rel="stylesheet"/>
+    <!--<link href="./Content/site.css" rel="stylesheet" />-->
+    <link  id="favicon"  rel="shortcut icon" type="image/x-icon" href="./Content/up.png" />
+
+    <style>
+          table input {
+            display: block !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            line-height: 1 !important;
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        td {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+            td > label {
+                text-align: center;
+            }
+</style>
+
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/blackscholes.js"></script>
+    <script src="Scripts/js-cookie/js.cookie.js"></script>
+    <script src="Scripts/toastr/toastr.js"></script> 
+    <script src="Scripts/knockout-3.4.2.js"></script>     
+    <script src="Scripts/main.js"></script>
+</head>
+
+<body>
+    <div class="container offset-1">
+        <div class="row">
+            <div style="margin-bottom:20px">
+                <h1 style="color:mediumblue"><span id="greetDate"></span></h1>
+            </div>
+             <div>
+                <h2>Basic Facts</h2>
+                <br />
+                <div class="alert-info text-capitalize" style="color:green; font-size:large; font-weight:bold">
+                    <input data-bind="checked: pollingOn" type="checkbox" id="cbQuotePolling" name="cbQuotePolling" value="1"  style="margin-left:5px"/>
+                    <label for="cbQuotePolling">Polling On</label>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="row m-0">
+                            <th class="d-inline-block col-lg-2">Stock</th>
+                            <th class="d-inline-block col-lg-2">Price</th>
+                            <th class="d-inline-block col-lg-3">Volatility</th>
+                            <th class="d-inline-block col-lg-3">Quantity</th>
+                            <th class="d-inline-block col-lg-2">Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="d-inline-block col-lg-2"><input data-bind="value: stock" id="stock" value="QQQ" /></td>
+                            <td class="d-inline-block col-lg-2"><input data-bind="value: stockPrice" id="currprice" style="background-color:lightcoral" /></td>
+                            <td class="d-inline-block col-lg-3"><input data-bind="value: volatility" id="volatility" value="13" /></td>
+                            <td class="d-inline-block col-lg-3"><input data-bind="value: positions" id="quantity" value="21" /></td>
+                            <td class="d-inline-block col-lg-2"><input data-bind="value: coverage" id="coverage" value="3500" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <h2>Expiring <span id="curWeekStart"></span> </h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="row m-0">
+                                <th class="d-inline-block col-3">Strike</th>
+                                <th class="d-inline-block col-3">Quantity</th>
+                                <th class="d-inline-block col-3">Option Price</th>
+                                <th class="d-inline-block col-3">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="ch1_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="ch1_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="ch1_price" /></td>
+                                <td class="d-inline-block col-3"><input id="ch1_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="ch2_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="ch2_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="ch2_price" /></td>
+                                <td class="d-inline-block col-3"><input id="ch2_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="ch3_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="ch3_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="ch3_price" /></td>
+                                <td class="d-inline-block col-3"><input id="ch3_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="ch4_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="ch4_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="ch4_price" /></td>
+                                <td class="d-inline-block col-3"><input id="ch4_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3">Avg Strike</td>
+                                <td class="d-inline-block col-3"><label id="curavgstrike"></label></td>
+                                <td class="d-inline-block col-3">Total</td>
+                                <td class="d-inline-block col-3"><label id="curhedgetotals"></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="gethedgetotal" class="btn btn-info align-bottom">Get Hedge Value</button>
+                    <button id="copyToNextWeek" class="btn btn-info align-bottom">Clone To Next Week</button>
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <div class="row">
+                        <h2>Expiring <span id="nextWeekStart"></span></h2><span style="align-self:center;color: goldenrod">&nbsp; Time Value: <span id="positiontimevalue"></span></span>
+                    </div>
+                    <table class="table table-bordered table-active">
+                        <thead>
+                            <tr class="row m-0">
+                                <th class="d-inline-block col-3">Strike</th>
+                                <th class="d-inline-block col-3">Quantity</th>
+                                <th class="d-inline-block col-3">Option Price</th>
+                                <th class="d-inline-block col-3">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="nh1_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="nh1_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="nh1_price" /></td>
+                                <td class="d-inline-block col-3"><input id="nh1_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="nh2_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="nh2_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="nh2_price" /></td>
+                                <td class="d-inline-block col-3"><input id="nh2_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="nh3_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="nh3_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="nh3_price" /></td>
+                                <td class="d-inline-block col-3"><input id="nh3_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3"><input id="nh4_strike" /></td>
+                                <td class="d-inline-block col-3"><input id="nh4_quantity" /></td>
+                                <td class="d-inline-block col-3"><input id="nh4_price" /></td>
+                                <td class="d-inline-block col-3"><input id="nh4_subtotal" /></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-3">Avg Strike</td>
+                                <td class="d-inline-block col-3"><label id="newavgstrike"></label></td>
+                                <td class="d-inline-block col-3">Total</td>
+                                <td class="d-inline-block col-3"><label id="newhedgetotals"></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="getnewhedge" class="btn btn-info align-bottom">Max Time Value</button>
+                    <button id="getnew2tierhedge" class="btn btn-info align-bottom">Get 2 Tier Hedge</button>
+                    <button id="getnewmanualhedge" class="btn btn-info align-bottom">Recalculate</button>
+                    <button id="clearNextWeekTable" class="btn btn-info align-bottom">Clear</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</body>
+</html>
